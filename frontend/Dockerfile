@@ -2,7 +2,8 @@
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY . .
-RUN npm install
+ARG NEXT_PUBLIC_BASE_URL
+RUN npm install & NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
 RUN npm run build && npm prune --production
 
 # Stage 2: run

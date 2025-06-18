@@ -4,8 +4,8 @@ import BaseLayout from '@/components/BaseLayout';
 import {MuiProvider} from "@/themes/MuiProvider";
 
 export const metadata: Metadata = {
-  title: 'Nintendo eShop Fan',
-  description: 'Next.js + MUI',
+  title: 'Bee Shortener',
+  description: 'Just shorten it',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -2,9 +2,9 @@
 
 import {Box, Button, Grid, IconButton, Snackbar, TextField, Typography} from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import {saveURL} from "@/service/SaveURL";
 import {EncodeOutput} from "@/interfaces/EncodeOutput";
 import {useState} from "react";
+import {saveURL} from "@/service/saveURL";
 
 export default function Home() {
   const [longURL, setLongURL] = useState<string>("")
