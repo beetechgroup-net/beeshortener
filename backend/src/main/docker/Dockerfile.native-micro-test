@@ -1,0 +1,30 @@
+# Etapa 1: Build com Maven
+FROM quay.io/quarkus/ubi9-quarkus-micro-image:2.0 AS build
+
+WORKDIR /project
+
+# Copia o código e os arquivos de build
+COPY . .
+
+# Dá permissão ao wrapper do Maven
+RUN chmod +x ./mvnw
+
+# Realiza o build nativo (com container build habilitado e sem testes)
+RUN ./mvnw clean package -Pnative -Dquarkus.native.container-build=true -DskipTests -Dquarkus.profile=prod
+
+# Etapa 2: Imagem final enxuta
+FROM quay.io/quarkus/ubi9-quarkus-micro-image:2.0
+
+WORKDIR /work/
+
+RUN chown 1001 /work \
+    && chmod "g+rwX" /work \
+    && chown 1001:root /work
+
+# Copia o binário gerado da etapa de build
+COPY --from=build --chown=1001:root --chmod=0755 /project/target/*-runner /work/application
+
+EXPOSE 8080
+USER 1001
+
+ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.profile=prod"]
