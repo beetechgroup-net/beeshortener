@@ -1,19 +1,20 @@
-FROM registry.access.redhat.com/ubi9/openjdk-17:1.21 as build
+# Etapa 1: Build da aplicação
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
 
-ENV LANGUAGE='en_US:en'
+# Copia o projeto
+COPY pom.xml .
+COPY src ./src
 
-COPY . .
-RUN mvn clean package -Dquarkus.package.type=legacy-jar -Dmaven.repo.local=/usr/share/maven/ref/repository -DskipTests
+# Executa o build
+RUN mvn package -DskipTests
 
-FROM registry.access.redhat.com/ubi9/openjdk-17:1.21 as runner
+# Etapa 2: Imagem de runtime leve
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
 
-ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+# Copia apenas o necessário do build
+COPY --from=build /app/target/quarkus-app/ ./
 
-COPY --from=build --chown=jboss:jboss /app/target/lib /deployments/lib
-COPY --from=build --chown=jboss:jboss /app/target/*runner.jar /deployments/quarkus-run.jar
-
-EXPOSE 8080
-USER 185
-
-ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
+# Define o comando para rodar o app
+CMD ["java", "-jar", "quarkus-run.jar"]
