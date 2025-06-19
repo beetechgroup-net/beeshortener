@@ -27,3 +27,5 @@ EXPOSE 8080
 USER 1001
 
 ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0"]
+
+# ./mvnw clean package -Pnative -Dquarkus.native.container-build=true -DskipTests
