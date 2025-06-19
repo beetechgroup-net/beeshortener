@@ -2,6 +2,7 @@ version: '3'
 
 services:
   postgres:
+    mem_limit: 100m
     build:
       context: ./postgresql
       dockerfile: Dockerfile
@@ -23,6 +24,7 @@ services:
       - beeshortener
 
   backend:
+    mem_limit: 100m
     build:
       context: ./backend
       dockerfile: src/main/docker/Dockerfile.legacy-jar
@@ -33,6 +35,7 @@ services:
       - beeshortener
 
   frontend:
+    mem_limit: 100m
     build:
       context: ./frontend
       dockerfile: Dockerfile
