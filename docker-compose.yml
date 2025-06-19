@@ -1,24 +1,17 @@
-version: '3'
-
 services:
-  postgres:
-    build:
-      context: ./postgresql
-      dockerfile: Dockerfile
-    env_file: .env
+  mariadb:
+    image: mariadb:11
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_MULTIPLE_DATABASES: ${DATABASE_NAME}
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${DATABASE_USER}" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      MARIADB_ROOT_PASSWORD: beetech
+      MARIADB_DATABASE: beeshortener
+      MARIADB_USER: beetech
+      MARIADB_PASSWORD: beetech
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
     networks:
       - beeshortener
 
@@ -28,7 +21,7 @@ services:
       dockerfile: src/main/docker/Dockerfile.native-micro
     env_file: .env
     depends_on:
-      - postgres
+      - mariadb
     networks:
       - beeshortener
 
@@ -49,14 +42,14 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - postgres
+      - mariadb
       - backend
       - frontend
     networks:
       - beeshortener
 
 volumes:
-  pgdata:
+  mariadb_data:
 
 networks:
   beeshortener:
