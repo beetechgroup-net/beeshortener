@@ -1,9 +1,11 @@
 package net.beetechgroup.resource.encode;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.LocalDateTime;
 import lombok.Data;
 import net.beetechgroup.domain.URL;
 
+@RegisterForReflection
 @Data
 public class EncodeOutput {
     private Long id;

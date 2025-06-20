@@ -1,5 +1,6 @@
 package net.beetechgroup.domain;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@RegisterForReflection
 @MappedSuperclass
 @Data
 @NoArgsConstructor
