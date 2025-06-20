@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import net.beetechgroup.service.FindURLByCode;
+import org.jboss.resteasy.reactive.RestResponse;
 
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,10 +24,8 @@ public class DecodeResource {
 
     @GET
     @Path("/{code}")
-    public Response decode(@PathParam("code") String code) {
-        return Response
-                .temporaryRedirect(URI.create(findURLByCode.execute(code)))
-                .build();
+    public RestResponse<String> decode(@PathParam("code") String code) {
+        return RestResponse.temporaryRedirect(URI.create(findURLByCode.execute(code)));
     }
 
 }

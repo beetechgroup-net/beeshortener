@@ -29,5 +29,5 @@ COPY --chown=1001:root --chmod=0755 target/*-runner /work/application
 EXPOSE 8080
 USER 1001
 
-ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.profile=prod"]
-# ./mvnw clean package -Pnative -Dquarkus.native.container-build=true -DskipTests
+ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.profile=prd"]
+# ./mvnw clean package -Pnative -Dquarkus.native.container-build=true -DskipTests -Dquarkus.profile=prd

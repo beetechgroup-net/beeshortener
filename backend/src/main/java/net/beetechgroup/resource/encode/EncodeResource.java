@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import net.beetechgroup.service.SaveURL;
+import org.jboss.resteasy.reactive.RestResponse;
 
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,8 +21,8 @@ public class EncodeResource {
     private final SaveURL saveURL;
 
     @POST
-    public Response encode(EncodeInput encodeInput) {
-        return Response.ok(saveURL.execute(encodeInput)).build();
+    public RestResponse<EncodeOutput> encode(EncodeInput encodeInput) {
+        return RestResponse.ok(saveURL.execute(encodeInput));
     }
 
 }

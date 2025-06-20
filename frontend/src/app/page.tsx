@@ -29,7 +29,7 @@ export default function Home() {
 
   async function handleCopy() {
     if (savedURL) {
-      await navigator.clipboard.writeText(`http://localhost:8080/${savedURL.code}`)
+      await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/${savedURL.code}`)
       setOpen(true)
     }
   }
@@ -79,7 +79,7 @@ export default function Home() {
                     alignItems="center"
               >
                 <Typography variant="h5" color="primary">
-                  {`Your shortened URL is: http://localhost:8080/${savedURL.code}`}
+                  {`Your shortened URL is: ${process.env.NEXT_PUBLIC_BASE_URL}/${savedURL.code}`}
                 </Typography>
                 <IconButton onClick={handleCopy}>
                   <ContentCopyIcon color={"primary"}/>
