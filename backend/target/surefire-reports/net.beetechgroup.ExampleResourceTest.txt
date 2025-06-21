@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+Test set: net.beetechgroup.ExampleResourceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.926 s <<< FAILURE! -- in net.beetechgroup.ExampleResourceTest
+net.beetechgroup.ExampleResourceTest.testHelloEndpoint -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.RuntimeException: java.lang.RuntimeException: Failed to start quarkus
+	at io.quarkus.test.junit.QuarkusTestExtension.throwBootFailureException(QuarkusTestExtension.java:667)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestClassConstructor(QuarkusTestExtension.java:762)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.RuntimeException: Failed to start quarkus
+	at io.quarkus.runner.ApplicationImpl.doStart(Unknown Source)
+	at io.quarkus.runtime.Application.start(Application.java:101)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at io.quarkus.runner.bootstrap.StartupActionImpl.run(StartupActionImpl.java:310)
+	at io.quarkus.test.junit.QuarkusTestExtension.doJavaStart(QuarkusTestExtension.java:232)
+	at io.quarkus.test.junit.QuarkusTestExtension.ensureStarted(QuarkusTestExtension.java:641)
+	at io.quarkus.test.junit.QuarkusTestExtension.beforeAll(QuarkusTestExtension.java:686)
+	... 1 more
+Caused by: io.smallrye.config.ConfigValidationException: Configuration validation failed:
+	java.util.NoSuchElementException: SRCFG00011: Could not expand value BACKEND_HOST in property quarkus.http.host
+	at io.smallrye.config.SmallRyeConfig.buildMappings(SmallRyeConfig.java:136)
+	at io.smallrye.config.SmallRyeConfig.<init>(SmallRyeConfig.java:90)
+	at io.smallrye.config.SmallRyeConfigBuilder.build(SmallRyeConfigBuilder.java:772)
+	at io.quarkus.runtime.generated.Config.readConfig(Unknown Source)
+	at io.quarkus.runtime.generated.Config.createRunTimeConfig(Unknown Source)
+	at io.quarkus.deployment.steps.RuntimeConfigSetup.deploy(Unknown Source)
+	... 8 more
+
