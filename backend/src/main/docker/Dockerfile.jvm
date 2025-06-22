@@ -96,3 +96,4 @@ ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
 ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
 
+#./mvnw clean package -DskipTests -Dquarkus.profile=prod
