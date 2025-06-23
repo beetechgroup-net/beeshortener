@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi9/openjdk-17:1.21 as build
 WORKDIR /app
 COPY . .
 
-RUN ./mvnw package -DskipTests -Dquarkus.profile=prod
+RUN mvn package -DskipTests -Dquarkus.profile=prod
 
 FROM registry.access.redhat.com/ubi9/openjdk-17:1.21 as runner
 
